@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
-import input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
+import axios from 'axios';
 
 class Signup extends Component {
     state = {
         formContent: {
             //Make a helper function to make this more clean//
-            firstName: {
+            name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
                     placeholder: 'First Name'
-                },
-                value: ''
-            },
-            lastName: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Last Name'
                 },
                 value: ''
             },
@@ -57,15 +50,20 @@ class Signup extends Component {
         this.setState({formContent: updatedFormContent});
     }
 
-    orderHandler = (event) => {
+    submitHandler = (event) => {
        event.preventDefault();
         const formData = {};
         for (let formElementIdentifier in this.state.formContent) {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         }
-        const userSignup = {
-            userForm: formData
-        }
+        delete formData.pwVerify;
+        axios.post('http://localhost:3000/account/signup', formData)
+            .then(response => {
+                this.props.history.push('/');
+            })
+            .catch(error => {
+                console.log('Error on Submission');
+            })
     }
 
     render () {
@@ -88,7 +86,7 @@ class Signup extends Component {
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                {/* <input type="submit">SUBMIT</input> */}
+                <Button btnType="Success">SUBMIT</Button>
             </form>
         );
 
