@@ -57,7 +57,7 @@ class Signup extends Component {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         }
         delete formData.pwVerify;
-        axios.post('http://localhost:3000/account/signup', formData)
+        axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
             .then(response => {
                 this.props.history.push('/');
             })
