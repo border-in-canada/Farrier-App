@@ -22,12 +22,13 @@ class Signup extends Component {
             email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'email',
                     placeholder: 'Email'
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    mailPattern: true
                 },
                 valid: false
             },
@@ -41,7 +42,8 @@ class Signup extends Component {
                 validation: {
                     required: true,
                     minLength: 8,
-                    maxLength: 24
+                    maxLength: 24,
+                    pwPattern: true
                 },
                 valid: false
             },
@@ -78,6 +80,10 @@ class Signup extends Component {
         if( rules.required ) {
             isValid = value.trim() !== '' && isValid;
         }
+        if ( rules.mailPattern ) {
+            let regEx = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            isValid = regEx.test(value) === true && isValid;
+        }
 
         if( rules.minLength ) {
             isValid = value.length >= rules.minLength && isValid;
@@ -85,6 +91,11 @@ class Signup extends Component {
 
         if( rules.maxLength ) {
             isValid = value.length <= rules.maxLength && isValid;
+        }
+
+        if ( rules.pwPattern ) {
+            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/);
+            isValid = pwRegEx.test(value) === true && isValid;
         }
 
         if( rules.doesMatch ) {
@@ -96,6 +107,7 @@ class Signup extends Component {
             }
         }
         return isValid;
+        
     }
 
     submitHandler = (event) => {
