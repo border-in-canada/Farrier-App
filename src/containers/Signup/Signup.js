@@ -11,43 +11,103 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'First Name'
+                    placeholder: 'Name'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'email',
                     placeholder: 'Email'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true,
+                    mailPattern: true
+                },
+                valid: false
             },
             password: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'password',
                     placeholder: 'Password'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 8,
+                    maxLength: 24,
+                    pwPattern: true
+                },
+                valid: false
             },
-            pwVerify: {
+            confirmPassword: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'password',
                     placeholder: 'Verify Password'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true,
+                    doesMatch: true
+                },
+                valid: false
             }
-        }
+        },
+        submitDisabled: true
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormContent = {...this.state.formContent};
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        console.log(updatedFormElement);
         updatedFormContent[inputIdentifier] = updatedFormElement;
         this.setState({formContent: updatedFormContent});
+    }
+
+    checkValidity(value, rules) {
+        let isValid = true;
+
+        if( rules.required ) {
+            isValid = value.trim() !== '' && isValid;
+        }
+        if ( rules.mailPattern ) {
+            let regEx = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            isValid = regEx.test(value) === true && isValid;
+        }
+
+        if( rules.minLength ) {
+            isValid = value.length >= rules.minLength && isValid;
+        }
+
+        if( rules.maxLength ) {
+            isValid = value.length <= rules.maxLength && isValid;
+        }
+
+        if ( rules.pwPattern ) {
+            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/);
+            isValid = pwRegEx.test(value) === true && isValid;
+        }
+
+        if( rules.doesMatch ) {
+            if ( value === this.state.formContent.password.value && isValid ) {
+                isValid = true;
+            }
+            else {
+                isValid = false;
+            }
+        }
+        return isValid;
+        
     }
 
     submitHandler = (event) => {
@@ -67,6 +127,7 @@ class Signup extends Component {
     }
 
     render () {
+
         const formElementsArray = [];
         for (let key in this.state.formContent) {
             formElementsArray.push({
@@ -86,7 +147,10 @@ class Signup extends Component {
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <Button btnType="Success">SUBMIT</Button>
+                {this.state.submitDisabled !== true ? 
+                <Button btnType="Success">SUBMIT</Button> : 
+                <Button btnType="Disabled">SUBMIT</Button>
+                }
             </form>
         );
 
