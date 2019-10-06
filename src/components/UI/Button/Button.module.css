@@ -1,6 +1,7 @@
 .Button {
     background-color: transparent;
     padding: 10px;
+    margin-top: 2em;
 }
 
 .Button:hover {
@@ -12,5 +13,6 @@
 }
 
 .Success {
-    color: blue;
+    color: white;
+    background-color: rgb(59, 59, 252);
 }

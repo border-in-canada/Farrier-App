@@ -66,8 +66,7 @@ class Signup extends Component {
                 touched: false
             }
         },
-        formIsValid: false
-
+        submitDisabled: true
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -76,12 +75,9 @@ class Signup extends Component {
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
+        console.log(updatedFormElement);
         updatedFormContent[inputIdentifier] = updatedFormElement;
-        let formIsValid = true;
-        for (let inputIdentifier in updatedFormContent) {
-            formIsValid = updatedFormContent[inputIdentifier].valid && formIsValid;
-        }
-        this.setState({formContent: updatedFormContent, formIsValid: formIsValid});
+        this.setState({formContent: updatedFormContent});
     }
 
     checkValidity(value, rules) {
@@ -161,9 +157,10 @@ class Signup extends Component {
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                {!this.state.formIsValid ? 
-                <Button btnType="Disabled" disabled={!this.state.formIsValid}>SUBMIT</Button> :
-                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>}
+                {this.state.submitDisabled !== true ? 
+                <Button btnType="Success">SUBMIT</Button> : 
+                <Button btnType="Disabled">SUBMIT</Button>
+                }
             </form>
         );
 
