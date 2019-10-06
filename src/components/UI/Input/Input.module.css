@@ -1,0 +1,9 @@
+.InputElement {
+    display: inline-block;
+    margin: 2em;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: rgb(252, 164, 155);
+}
