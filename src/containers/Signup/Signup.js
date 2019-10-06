@@ -130,7 +130,7 @@ class Signup extends Component {
         axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
             .then(response => {
                 this.props.history.push('/');
-                window.localStorage.setItem("authToken", response.authToken);
+                window.localStorage.setItem("authToken", response.data.authToken);
             })
             .catch(error => {
                 console.log('Error on Submission');
