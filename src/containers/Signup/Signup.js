@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import styles from './Signup.module.css';
 import axios from 'axios';
 
 class Signup extends Component {
@@ -17,7 +18,8 @@ class Signup extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elementType: 'input',
@@ -30,7 +32,8 @@ class Signup extends Component {
                     required: true,
                     mailPattern: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             password: {
                 elementType: 'input',
@@ -45,7 +48,8 @@ class Signup extends Component {
                     maxLength: 24,
                     pwPattern: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             confirmPassword: {
                 elementType: 'input',
@@ -58,10 +62,12 @@ class Signup extends Component {
                     required: true,
                     doesMatch: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             }
         },
-        submitDisabled: true
+        formIsValid: false
+
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -69,9 +75,13 @@ class Signup extends Component {
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        console.log(updatedFormElement);
+        updatedFormElement.touched = true;
         updatedFormContent[inputIdentifier] = updatedFormElement;
-        this.setState({formContent: updatedFormContent});
+        let formIsValid = true;
+        for (let inputIdentifier in updatedFormContent) {
+            formIsValid = updatedFormContent[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({formContent: updatedFormContent, formIsValid: formIsValid});
     }
 
     checkValidity(value, rules) {
@@ -94,7 +104,7 @@ class Signup extends Component {
         }
 
         if ( rules.pwPattern ) {
-            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/);
+            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/);
             isValid = pwRegEx.test(value) === true && isValid;
         }
 
@@ -116,10 +126,11 @@ class Signup extends Component {
         for (let formElementIdentifier in this.state.formContent) {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         }
-        delete formData.pwVerify;
+        
         axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
             .then(response => {
                 this.props.history.push('/');
+                window.localStorage.setItem("authToken", response.data.authToken);
             })
             .catch(error => {
                 console.log('Error on Submission');
@@ -144,20 +155,24 @@ class Signup extends Component {
                     elementType={formElement.config.elementType} 
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation}
+                    touched={formElement.config.touched}
+                    label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                {this.state.submitDisabled !== true ? 
-                <Button btnType="Success">SUBMIT</Button> : 
-                <Button btnType="Disabled">SUBMIT</Button>
-                }
+                {!this.state.formIsValid ? 
+                <Button btnType="Disabled" disabled={!this.state.formIsValid}>SUBMIT</Button> :
+                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>}
             </form>
         );
 
         return (
-            <div>
+            <div className={styles.FormContainer}>
                 <h1>User Signup</h1>
                 {form}
+                <a href='http://localhost:3006/login'>Login</a>
             </div>
         );
     }
