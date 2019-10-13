@@ -1,39 +1,21 @@
 import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
-import styles from './Signup.module.css';
+import styles from './Login.module.css';
 import axios from 'axios';
 
-class Signup extends Component {
+class Login extends Component {
     state = {
         formContent: {
             //Make a helper function to make this more clean//
-            name: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Name'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
+            
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
                     placeholder: 'Email'
                 },
-                value: '',
-                validation: {
-                    required: true,
-                    mailPattern: true
-                },
-                valid: false,
-                touched: false
+                value: ''
             },
             password: {
                 elementType: 'input',
@@ -41,81 +23,20 @@ class Signup extends Component {
                     type: 'password',
                     placeholder: 'Password'
                 },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 8,
-                    maxLength: 24,
-                    pwPattern: true
-                },
-                valid: false,
-                touched: false
-            },
-            confirmPassword: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Verify Password'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    doesMatch: true
-                },
-                valid: false,
-                touched: false
+                value: ''
             }
-        },
-        submitDisabled: true
+        }
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormContent = {...this.state.formContent};
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        console.log(updatedFormElement);
         updatedFormContent[inputIdentifier] = updatedFormElement;
         this.setState({formContent: updatedFormContent});
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-
-        if( rules.required ) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        if ( rules.mailPattern ) {
-            let regEx = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-            isValid = regEx.test(value) === true && isValid;
-        }
-
-        if( rules.minLength ) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if( rules.maxLength ) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        if ( rules.pwPattern ) {
-            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/);
-            isValid = pwRegEx.test(value) === true && isValid;
-        }
-
-        if( rules.doesMatch ) {
-            if ( value === this.state.formContent.password.value && isValid ) {
-                isValid = true;
-            }
-            else {
-                isValid = false;
-            }
-        }
-        return isValid;
-        
-    }
-
+    
     submitHandler = (event) => {
        event.preventDefault();
         const formData = {};
@@ -123,9 +44,9 @@ class Signup extends Component {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         }
         
-        axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
+        axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
             .then(response => {
-                this.props.history.push('/');
+                this.props.history.push('/dashboard');
             })
             .catch(error => {
                 console.log('Error on Submission');
@@ -150,27 +71,22 @@ class Signup extends Component {
                     elementType={formElement.config.elementType} 
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
-                    invalid={!formElement.config.valid}
-                    shouldValidate={formElement.config.validation}
-                    touched={formElement.config.touched}
                     label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                {this.state.submitDisabled !== true ? 
-                <Button btnType="Success">SUBMIT</Button> : 
-                <Button btnType="Disabled">SUBMIT</Button>
-                }
+                <Button btnType="Success">SUBMIT</Button> 
             </form>
         );
 
         return (
             <div className={styles.FormContainer}>
-                <h1>User Signup</h1>
+                <h1>User Login</h1>
                 {form}
+                <a href='http://localhost:3006/signup'>Signup</a>
             </div>
         );
     }
 }
 
-export default Signup;
+export default Login;
