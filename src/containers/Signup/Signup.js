@@ -172,6 +172,7 @@ class Signup extends Component {
             <div className={styles.FormContainer}>
                 <h1>User Signup</h1>
                 {form}
+                <a href='http://localhost:3006/login'>Login</a>
             </div>
         );
     }
