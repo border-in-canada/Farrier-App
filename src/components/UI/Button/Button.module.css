@@ -2,6 +2,8 @@
     background-color: transparent;
     padding: 10px;
     margin: 2em 0em;
+    width: 6em;
+    position: relative;
 }
 
 .Button:hover {
@@ -14,5 +16,10 @@
 
 .Success {
     color: white;
-    background-color: rgb(59, 59, 252);
+    background-color: #57A8CC;
+}
+
+.Toggle {
+    color: black;
+    background-color: #ccc;
 }

@@ -169,10 +169,9 @@ class Signup extends Component {
         );
 
         return (
-            <div className={styles.FormContainer}>
-                <h1>User Signup</h1>
+            <div className={`${styles.FormContainer} ${this.props.show ? styles.Hide : styles.Show}`}>
+                <h1>Signup</h1>
                 {form}
-                <a href='http://localhost:3006/login'>Login</a>
             </div>
         );
     }

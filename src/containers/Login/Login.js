@@ -47,6 +47,7 @@ class Login extends Component {
         axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
             .then(response => {
                 this.props.history.push('/dashboard');
+                window.localStorage.setItem("authToken", response.data.authToken);
             })
             .catch(error => {
                 console.log('Error on Submission');
@@ -80,10 +81,9 @@ class Login extends Component {
         );
 
         return (
-            <div className={styles.FormContainer}>
-                <h1>User Login</h1>
+            <div className={`${styles.FormContainer} ${this.props.show ? styles.Show : styles.Hide}`}>
+                <h1>Login</h1>
                 {form}
-                <a href='http://localhost:3006/signup'>Signup</a>
             </div>
         );
     }
