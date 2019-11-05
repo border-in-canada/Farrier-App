@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Aux from '../Aux';
 import styles from './LoginContainer.module.css';
-import Button from '../../components/UI/Button/Button';
+// import Button from '../../components/UI/Button/Button';
 import Login from '../../containers/Login/Login';
 import Signup from '../../containers/Signup/Signup';
+import { Button } from '@material-ui/core';
 
 class LoginContainer extends Component {
     state = {
@@ -18,20 +19,23 @@ class LoginContainer extends Component {
     }
 
     render () {
-
-        let BtnName;
-        this.state.showLogin ? BtnName = "SIGNUP" : BtnName = "LOGIN";
-
         return (
-            <Aux>
-                <div className={`${styles.LoginContainer} ${this.state.showLogin ? styles.Shrink : styles.Grow}`}>
-                    <Login touched={this.state.touched} show={this.state.showLogin}/>   
-                    <Signup touched={this.state.touched} show={this.state.showLogin}/> 
-                </div> 
+            <div className={`${styles.LoginContainer} ${this.state.showLogin ? styles.Shrink : styles.Grow}`}>
                 <div className={styles.Toggle}>
-                    <Button clicked={this.buttonToggleHandler} btnType="Toggle">{BtnName}</Button>
-                </div> 
-            </Aux>
+                    <Button onClick={this.buttonToggleHandler}
+                    variant={this.state.showLogin ? "contained" : "outlined"}
+                    color="secondary"
+                    size="medium"
+                    >Login</Button>  
+                    <Button onClick={this.buttonToggleHandler}
+                    variant={!this.state.showLogin ? "contained" : "outlined"}
+                    color="secondary"
+                    size="medium"
+                    >Signup</Button>
+                </div>
+                <Login touched={this.state.touched} show={this.state.showLogin}/>   
+                <Signup touched={this.state.touched} show={this.state.showLogin}/> 
+            </div> 
         );
     }
 };
