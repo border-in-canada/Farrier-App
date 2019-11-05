@@ -1,0 +1,29 @@
+
+.LoginContainer{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    width: 30%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    box-shadow: 1px 2px #ccc;
+    overflow: hidden;
+    transition: all .5s ease-out;
+}
+
+.Toggle{
+   padding-top: 1em;
+   padding-bottom: 1em;
+}
+
+.Shrink{
+    height: 400px;
+}
+
+.Grow{
+    height: 500px;
+}
+
+

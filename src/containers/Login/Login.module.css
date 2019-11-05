@@ -1,8 +1,28 @@
-.FormContainer {
-    margin-top: 15vh;
-    text-align: center;
+
+.Show{
+    animation: in 1s forwards;
+}
+.Hide{
+    animation: out 1s ease-out forwards;
 }
 
-.FormContainer h1 {
-    padding-bottom: 1.5em;
+@keyframes out {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-200%)
+    }
+}
+
+@keyframes in {
+    0%{
+        transform: translateX(-200%);
+    }
+    50%{
+        transform: translateX(10%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
 }

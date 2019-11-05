@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Input.module.css';
+import { Input, InputLabel, FormControl } from '@material-ui/core';
 
 const input = (props) => {
     let inputElement = null;
@@ -11,16 +12,18 @@ const input = (props) => {
 
     switch (props.elementType) {
         case ('input'):
-            inputElement = <input
-            className={inputClasses.join(' ')} 
+            inputElement = <Input 
+            className={inputClasses.join(' ')}
+            id={props.key}
             {...props.elementConfig} 
             value={props.value}
             onChange={props.changed}
             />;
             break;
         default: 
-            inputElement = <input 
+            inputElement = <Input 
             className={inputClasses.join(' ')}
+            id={props.key}
             {...props.elementConfig} 
             value={props.value}
             onChange={props.changed}
@@ -28,11 +31,13 @@ const input = (props) => {
     }
 
     return (
-        <div>
-            <label>{props.label}</label>
+        <FormControl margin="normal" fullWidth>
             {inputElement}
-        </div>
+        </FormControl>
+    
     );
 };
 
 export default input;
+
+            

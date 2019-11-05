@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
+import { Button } from '@material-ui/core';
 import styles from './Signup.module.css';
 import axios from 'axios';
 
@@ -150,6 +150,7 @@ class Signup extends Component {
         let form = (
             <form onSubmit={this.submitHandler}>
                 {formElementsArray.map(formElement => (
+                    
                     <Input
                     key={formElement.id}
                     elementType={formElement.config.elementType} 
@@ -161,18 +162,25 @@ class Signup extends Component {
                     label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
+                   
                 ))}
                 {!this.state.formIsValid ? 
-                <Button btnType="Disabled" disabled={!this.state.formIsValid}>SUBMIT</Button> :
-                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>}
+                <Button 
+                color="primary" 
+                variant="contained" 
+                size="medium" 
+                disabled={!this.state.formIsValid}>SUBMIT</Button> :
+                <Button 
+                color="primary" 
+                variant="contained" 
+                size="medium" 
+                disabled={!this.state.formIsValid}>SUBMIT</Button>}
             </form>
         );
 
         return (
-            <div className={styles.FormContainer}>
-                <h1>User Signup</h1>
+            <div className={`${styles.FormContainer} ${this.props.show ? styles.Hide : styles.Show}`}>
                 {form}
-                <a href='http://localhost:3006/login'>Login</a>
             </div>
         );
     }
