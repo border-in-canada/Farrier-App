@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { FormControl, Button } from '@material-ui/core';
 import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
+// import Button from '../../components/UI/Button/Button';
 import styles from './Login.module.css';
 import axios from 'axios';
+
 
 class Login extends Component {
     state = {
@@ -47,6 +49,7 @@ class Login extends Component {
         axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
             .then(response => {
                 this.props.history.push('/dashboard');
+                window.localStorage.setItem("authToken", response.data.authToken);
             })
             .catch(error => {
                 console.log('Error on Submission');
@@ -65,7 +68,7 @@ class Login extends Component {
 
         let form = (
             <form onSubmit={this.submitHandler}>
-                {formElementsArray.map(formElement => (
+                {formElementsArray.map(formElement => (  
                     <Input
                     key={formElement.id}
                     elementType={formElement.config.elementType} 
@@ -73,17 +76,15 @@ class Login extends Component {
                     value={formElement.config.value}
                     label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
-                    />
+                    /> 
                 ))}
-                <Button btnType="Success">SUBMIT</Button> 
+                <Button variant="contained" color="primary" size="medium">Submit</Button> 
             </form>
         );
 
         return (
-            <div className={styles.FormContainer}>
-                <h1>User Login</h1>
+            <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
                 {form}
-                <a href='http://localhost:3006/signup'>Signup</a>
             </div>
         );
     }

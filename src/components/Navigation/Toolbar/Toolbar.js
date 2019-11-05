@@ -1,20 +1,19 @@
 import React from 'react';
 import styles from './Toolbar.module.css';
+import Typography from '@material-ui/core/Typography';
+import Appbar from '@material-ui/core/Appbar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Nav from '../Nav/Nav';
 
 const toolbar = (props) => (
-    <header className={styles.Toolbar}>
-        <div>
-            <h1>MENU</h1>
-        </div>
-        <div>
-            <h1>LOGO</h1>
-        </div>
-       <nav>
-           <div style={{paddingRight:'1em'}}>Link 1</div>
-           <div style={{paddingRight:'1em'}}>Link 2</div>
-           <div style={{paddingRight:'1em'}}>Link 3</div>
-       </nav>
-    </header>
+    <Appbar color="primary" position="static">
+        <Toolbar className={styles.Toolbar}>
+            <Typography variant="h4" color="inherit">
+                LOGO
+            </Typography>
+            <Nav />
+        </Toolbar>
+    </Appbar>
 )
 
 export default toolbar;
