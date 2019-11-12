@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../Aux';
 import styles from './LoginContainer.module.css';
-// import Button from '../../components/UI/Button/Button';
 import Login from '../../containers/Login/Login';
 import Signup from '../../containers/Signup/Signup';
 import { Button } from '@material-ui/core';

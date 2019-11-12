@@ -166,11 +166,13 @@ class Signup extends Component {
                 ))}
                 {!this.state.formIsValid ? 
                 <Button 
+                type="submit"
                 color="primary" 
                 variant="contained" 
                 size="medium" 
                 disabled={!this.state.formIsValid}>SUBMIT</Button> :
                 <Button 
+                type="submit"
                 color="primary" 
                 variant="contained" 
                 size="medium" 
