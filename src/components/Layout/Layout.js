@@ -4,7 +4,7 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 const layout = (props) => (
     <Aux>
-        <Toolbar />
+        <Toolbar authenticated={props.authenticated} />
         <main>
             {props.children}
         </main>   
