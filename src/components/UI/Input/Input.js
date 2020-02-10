@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Input.module.css';
-import { Input, InputLabel, FormControl } from '@material-ui/core';
+import { Input, FormControl } from '@material-ui/core';
 
 const input = (props) => {
     let inputElement = null;

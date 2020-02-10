@@ -1,0 +1,9 @@
+.Nav li{
+    padding-right: 1em;
+}
+.Nav a{
+    color: white;
+}
+.Nav a:hover{
+    color: grey;
+}
