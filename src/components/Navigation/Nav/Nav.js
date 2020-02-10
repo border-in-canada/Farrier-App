@@ -1,22 +1,27 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import styles from './Nav.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const nav = (props) => {
+    const authenticated = props.authenticated;
     return(
-        <div>
+        <div className={styles.Nav}>
             <List component="nav">
                 <ListItem component="div">
+                    { authenticated === true ? 
                     <ListItemText >
-                    <Button color="inherit">Link 1</Button>
-                    </ListItemText>
+                    <li><Link to="/logout"><FontAwesomeIcon icon={faSignOutAlt} size="lg" /></Link></li>
+                    </ListItemText> :
                     <ListItemText >
-                    <Button color="inherit">Link 2</Button>
-                    </ListItemText>
-                    <ListItemText >
-                    <Button color="inherit">Link 3</Button>
-                    </ListItemText>
+                    <li><a href="/signin"><FontAwesomeIcon icon={faSignInAlt} size="lg" /></a></li>
+                    </ListItemText>}
+                    
                 </ListItem>
             </List>
+            
         </div>
     );
 }

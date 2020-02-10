@@ -11,7 +11,7 @@ const toolbar = (props) => (
             <Typography variant="h4" color="inherit">
                 LOGO
             </Typography>
-            <Nav />
+            <Nav authenticated={props.authenticated}/>
         </Toolbar>
     </Appbar>
 )
