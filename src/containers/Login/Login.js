@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import Input from '../../components/UI/Input/Input';
 import styles from './Login.module.css';
-import { connect, MapDispatchToProps } from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { withRouter } from "react-router-dom"
 
