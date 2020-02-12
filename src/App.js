@@ -8,19 +8,24 @@ import LoginContainer from './hoc/LoginContainer/LoginContainer';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Logout from './components/Logout/Logout';
 import * as actions from './store/actions/index';
+import ResetPassword from './components/ResetPassword/ResetPassword';
+import PasswordReset from './components/PasswordReset/PasswordReset';
 
 class App extends Component {
 
   componentDidMount() {
+    console.log("ComponentMounted")
     this.props.isAuthCheck();
   }
-  
+
   render () {
 
     let routes = (
       <Switch>
         <Route path="/" exact component={Splash} />
         <Route path="/signin" component={LoginContainer} />
+        <Route path="/resetpassword" component={ResetPassword} />
+        <Route path="/reset" component={PasswordReset} />
         <Redirect to="/" />
       </Switch>
       
@@ -29,16 +34,15 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/" exact component={Splash} />
-          <Route path="/signin" component={LoginContainer} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/logout" component={Logout} />
-      </Switch>
+          <Redirect to="/dashboard" />
+        </Switch>
       );
     }
     return (
       <div className={styles.App}>
-        <Layout authenticated={this.props.isAuthenticated} >
+        <Layout>
           {routes}
         </Layout>
       </div>
@@ -46,16 +50,19 @@ class App extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  console.log("authCheckdispatched");
+  return {
+    isAuthCheck: () => dispatch(actions.authCheckState())
+  };
+};
+
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    isAuthCheck: () => dispatch(actions.authCheckState)
-  };
-};
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

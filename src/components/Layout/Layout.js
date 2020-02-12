@@ -4,12 +4,13 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 const layout = (props) => (
     <Aux>
-        <Toolbar authenticated={props.authenticated} />
+        <Toolbar />
         <main>
             {props.children}
         </main>   
     </Aux>
 
 );
+
 
 export default layout;
