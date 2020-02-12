@@ -1,5 +1,6 @@
 export {
     auth,
     authCheckState,
-    logout
+    logout,
+    requestPasswordReset
 } from './auth';

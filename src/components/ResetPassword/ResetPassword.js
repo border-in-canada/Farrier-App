@@ -1,31 +1,21 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
-import Input from '../../components/UI/Input/Input';
-import styles from './Login.module.css';
+import Input from '../UI/Input/Input';
+import styles from './ResetPassword.module.css';
 import { connect, MapDispatchToProps } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { withRouter, Link } from "react-router-dom"
 
 
-class Login extends Component {
-   //Form Setup
+class ResetPassword extends Component {
+   
     state = {
-        formContent: {
-            //Make a helper function to make this more clean//
-            
+        formContent: {            
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
                     placeholder: 'Email'
-                },
-                value: ''
-            },
-            password: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Password'
                 },
                 value: ''
             }
@@ -47,7 +37,7 @@ class Login extends Component {
         for (let formElementIdentifier in this.state.formContent) {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         };
-        this.props.onAuth(formData, this.props.history);
+        this.props.resetSubmit(formData, this.props.history);
     }
 
     render () {
@@ -72,16 +62,14 @@ class Login extends Component {
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     /> 
                 ))}
-                <Button type="submit" variant="contained" color="primary" size="medium">Submit</Button><br />
-                
+                <Button type="submit" variant="contained" color="primary" size="medium">Reset</Button>
             </form>
             
         );
 
         return (
-            <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
+            <div className={styles.FormContainer}>
                 {form}
-                <Link className={styles.Link} to="/resetpassword">Forgot Password?</Link>
             </div>
         );
     }
@@ -89,8 +77,8 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (formData, history) => dispatch(actions.auth(formData, history))
+        resetSubmit: (formData, history) => dispatch(actions.requestPasswordReset(formData, history))
     }
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+export default connect(null, mapDispatchToProps)(withRouter(ResetPassword));
