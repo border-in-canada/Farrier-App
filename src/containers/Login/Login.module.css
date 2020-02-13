@@ -6,6 +6,10 @@
     animation: out 1s ease-out forwards;
 }
 
+.Link:hover{
+    color: lightblue;
+}
+
 @keyframes out {
     0%{
         transform: translateX(0);

@@ -2,5 +2,6 @@ export {
     auth,
     signupAuth,
     authCheckState,
-    logout
+    logout,
+    requestPasswordReset
 } from './auth';
