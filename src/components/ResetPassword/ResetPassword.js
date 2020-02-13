@@ -26,7 +26,10 @@ class ResetPassword extends Component {
         const updatedFormContent = {...this.state.formContent};
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
         updatedFormContent[inputIdentifier] = updatedFormElement;
+        let formIsValid = true;
         this.setState({formContent: updatedFormContent});
     }
 
