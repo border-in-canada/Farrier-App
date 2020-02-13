@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
 import { Button } from '@material-ui/core';
 import styles from './Signup.module.css';
-import axios from 'axios';
+import { connect, } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../../store/actions/index';
 
 class Signup extends Component {
     state = {
@@ -126,15 +128,7 @@ class Signup extends Component {
         for (let formElementIdentifier in this.state.formContent) {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         }
-        
-        axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
-            .then(response => {
-                this.props.history.push('/');
-                window.localStorage.setItem("authToken", response.data.authToken);
-            })
-            .catch(error => {
-                console.log('Error on Submission');
-            })
+        this.props.signupSubmit(formData, this.props.history);
     }
 
     render () {
@@ -188,4 +182,10 @@ class Signup extends Component {
     }
 }
 
-export default Signup;
+const mapDispatchToProps = dispatch => {
+    return {
+        signupSubmit: (formData, history) => dispatch(actions.signupAuth(formData, history))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(Signup));
