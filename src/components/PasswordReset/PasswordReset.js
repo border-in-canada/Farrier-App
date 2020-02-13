@@ -100,7 +100,6 @@ class PasswordReset extends Component {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         };
         formData.resetToken = token;
-        console.log(formData);
         this.props.resetSubmit(formData, this.props.history);
     }
 
