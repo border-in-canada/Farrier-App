@@ -3,5 +3,6 @@ export {
     signupAuth,
     authCheckState,
     logout,
-    requestPasswordReset
+    requestPasswordReset,
+    passwordReset
 } from './auth';
