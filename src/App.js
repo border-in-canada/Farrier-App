@@ -14,7 +14,6 @@ import PasswordReset from './components/PasswordReset/PasswordReset';
 class App extends Component {
 
   componentDidMount() {
-    console.log("ComponentMounted")
     this.props.isAuthCheck();
   }
 

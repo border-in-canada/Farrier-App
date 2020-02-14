@@ -33,11 +33,27 @@ export const requestPasswordReset = (formData, history) => {
     return dispatch => {
         axios.post('http://localhost:3000/account/requestreset', formData, { withCredentials: true })
         .then(response => {
-            console.log("Password request submitted");
             history.push('/');
         })
         .catch(error => {
-            console.log('Error on Submission');
+            dispatch(authFail(error));
+        })
+    };
+};
+
+export const passwordReset = (formData, history) => {
+    return dispatch => {
+        dispatch(authStart());
+        axios.post('http://localhost:3000/account/resetpassword', formData, { withCredentials: true })
+        .then(response => {
+            dispatch(authSuccess(response.data.authToken.access_token));
+            dispatch(checkAuthTimeout(response.data.authToken.expires_in))
+            const expiryDate = new Date(new Date().getTime() + response.data.authToken.expires_in);
+            localStorage.setItem('authToken', response.data.authToken.access_token);
+            localStorage.setItem('expiryDate', expiryDate);
+            history.push('/dashboard');
+        })
+        .catch(error => {
             dispatch(authFail(error));
         })
     };
@@ -64,7 +80,6 @@ export const auth = (formData, history) => {
             history.push('/dashboard');
         })
         .catch(error => {
-            console.log('Error on Submission');
             dispatch(authFail(error));
         })
     };
@@ -83,16 +98,13 @@ export const signupAuth = (formData, history) => {
             history.push('/dashboard');
         })
         .catch(error => {
-            console.log('Error on Submission');
             dispatch(authFail(error));
         })
     };
 };
 
 export const authCheckState = () => {
-    console.log("authCheckAction");
     return dispatch => {
-        console.log("Looking for token");
         const token = localStorage.getItem('authToken');
         if (!token) {
             dispatch(logout());
