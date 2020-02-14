@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import Input from '../UI/Input/Input';
 import styles from './PasswordReset.module.css';
-import { connect, MapDispatchToProps } from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { withRouter, Link } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
 
 class PasswordReset extends Component {
