@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import Input from '../UI/Input/Input';
 import styles from './PasswordReset.module.css';
-import { connect, MapDispatchToProps } from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { withRouter, Link } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
 
 class PasswordReset extends Component {
@@ -50,11 +50,7 @@ class PasswordReset extends Component {
         if( rules.required ) {
             isValid = value.trim() !== '' && isValid;
         }
-        if ( rules.mailPattern ) {
-            let regEx = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-            isValid = regEx.test(value) === true && isValid;
-        }
-
+        
         if( rules.minLength ) {
             isValid = value.length >= rules.minLength && isValid;
         }
@@ -84,6 +80,8 @@ class PasswordReset extends Component {
         const updatedFormContent = {...this.state.formContent};
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
         updatedFormContent[inputIdentifier] = updatedFormElement;
         let formIsValid = true;
         for (let inputIdentifier in updatedFormContent) {
@@ -94,18 +92,18 @@ class PasswordReset extends Component {
 
     
     submitHandler = (event) => {
-       event.preventDefault();
+        event.preventDefault();
+        const query = new URLSearchParams(this.props.location.search);
+        const token = query.get('resetToken');
         const formData = {};
         for (let formElementIdentifier in this.state.formContent) {
             formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         };
+        formData.resetToken = token;
         this.props.resetSubmit(formData, this.props.history);
     }
 
     render () {
-
-        const query = new URLSearchParams(this.props.location.search);
-        const token = query.get('resetToken');
 
         const formElementsArray = [];
         for (let key in this.state.formContent) {
@@ -159,7 +157,7 @@ class PasswordReset extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        resetSubmit: (formData, history) => dispatch(actions.requestPasswordReset(formData, history))
+        resetSubmit: (formData, history) => dispatch(actions.passwordReset(formData, history))
     }
 };
 
