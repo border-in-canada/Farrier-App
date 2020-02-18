@@ -41,6 +41,18 @@ export const requestPasswordReset = (formData, history) => {
     };
 };
 
+export const addClient = (payLoad, history) => {
+    return dispatch => {
+        axios.post('http://localhost:3000/client', payLoad, { withCredentials: true })
+        .then(response => {
+            history.push('/dashboard/clients');
+        })
+        .catch(error => {
+            dispatch(authFail(error));
+        })
+    };
+};
+
 export const passwordReset = (formData, history) => {
     return dispatch => {
         dispatch(authStart());

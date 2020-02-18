@@ -1,0 +1,13 @@
+.sideDrawer {
+    display: flex;
+    flex-direction: column;
+    background: #3F51B5;
+    height: 100vh;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.Link {
+    text-decoration: none;
+    color: white;
+}
