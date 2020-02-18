@@ -50,7 +50,6 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  console.log("authCheckdispatched");
   return {
     isAuthCheck: () => dispatch(actions.authCheckState())
   };

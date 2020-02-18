@@ -1,0 +1,16 @@
+.Container {
+    display: flex;
+    margin-top: -10px;
+    position: relative;
+    z-index: 100;
+}
+.SideDrawer {
+    width: 15%;
+    margin-top: 10px;
+}
+
+.Content {
+    border-top-left-radius: 10px;
+    width: 85%;
+    background: white;
+}
