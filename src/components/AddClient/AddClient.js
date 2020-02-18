@@ -105,14 +105,11 @@ class AddClient extends Component {
     
     submitHandler = (event) => {
         event.preventDefault();
-        const formData = {};
-        const payLoad = {authToken: {access_token: this.props.authToken, expires_in: this.props.expiresIn}};
-        formData.authToken = this.state.authToken;
+        const data = {};
         for (let formElementIdentifier in this.state.formContent) {
-            formData[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
+            data[formElementIdentifier] = this.state.formContent[formElementIdentifier].value;
         };
-        payLoad.data = formData;
-        this.props.onAuth(payLoad, this.props.history);
+        this.props.onAuth(data, this.props.history);
     }
 
     render () {
@@ -160,15 +157,9 @@ class AddClient extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (payLoad, history) => dispatch(actions.addClient(payLoad, history))
+        onAuth: (data, history) => dispatch(actions.addClient(data, history))
     }
 };
 
-const mapStateToProps = state => {
-    return {
-        authToken: state.token.authToken,
-        expiresIn: state.token.expiresIn
-    }
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddClient));
+export default withRouter(connect(null, mapDispatchToProps)(AddClient));
