@@ -22,10 +22,16 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('expiryDate');
-    return {
-        type: actionTypes.AUTH_LOGOUT
+    return dispatch => {
+        axios.post('http://localhost:3000/account/signout', { withCredentials: true })
+        .then(response => {
+            return{
+                type: actionTypes.AUTH_LOGOUT
+            }
+        })
+        .catch(error => {
+            dispatch(authFail(error));
+        })
     };
 };
 
@@ -58,11 +64,7 @@ export const passwordReset = (formData, history) => {
         dispatch(authStart());
         axios.post('http://localhost:3000/account/resetpassword', formData, { withCredentials: true })
         .then(response => {
-            dispatch(authSuccess(response.data.authToken.access_token));
-            dispatch(checkAuthTimeout(response.data.authToken.expires_in))
-            const expiryDate = new Date(new Date().getTime() + response.data.authToken.expires_in);
-            localStorage.setItem('authToken', response.data.authToken.access_token);
-            localStorage.setItem('expiryDate', expiryDate);
+            dispatch(authSuccess());
             history.push('/dashboard');
         })
         .catch(error => {
@@ -71,24 +73,12 @@ export const passwordReset = (formData, history) => {
     };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(()=>{
-            dispatch (logout());
-        }, expirationTime);
-    };
-};
-
 export const auth = (formData, history) => {
     return dispatch => {
         dispatch(authStart());
         axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
         .then(response => {
-            dispatch(authSuccess(response.data.authToken.access_token));
-            dispatch(checkAuthTimeout(response.data.authToken.expires_in))
-            const expiryDate = new Date(new Date().getTime() + response.data.authToken.expires_in);
-            localStorage.setItem('authToken', response.data.authToken.access_token);
-            localStorage.setItem('expiryDate', expiryDate);
+            dispatch(authSuccess());
             history.push('/dashboard');
         })
         .catch(error => {
@@ -102,11 +92,7 @@ export const signupAuth = (formData, history) => {
         dispatch(authStart());
         axios.post('http://localhost:3000/account/signup', formData, { withCredentials: true })
         .then(response => {
-            dispatch(authSuccess(response.data.authToken, history));
-            dispatch(checkAuthTimeout(response.data.authToken.expires_in))
-            const expiryDate = new Date(new Date().getTime() + response.data.authToken.expires_in);
-            localStorage.setItem('authToken', response.data.authToken.access_token);
-            localStorage.setItem('expiryDate', expiryDate)
+            dispatch(authSuccess());
             history.push('/dashboard');
         })
         .catch(error => {
@@ -115,21 +101,3 @@ export const signupAuth = (formData, history) => {
     };
 };
 
-export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            dispatch(logout());
-        }
-        else {
-            const expirationDate = new Date(localStorage.getItem('expiryDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            }
-            else {
-                dispatch(authSuccess(token));
-                dispatch(checkAuthTimeout(expirationDate.getTime() - new Date().getTime()));
-            }
-        }
-    };
-};
