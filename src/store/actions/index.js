@@ -4,5 +4,7 @@ export {
     logout,
     requestPasswordReset,
     passwordReset,
-    addClient
+    addClient,
+    authCheckState,
+    getUser
 } from './auth';

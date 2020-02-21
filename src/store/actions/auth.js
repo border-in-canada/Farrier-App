@@ -7,11 +7,10 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (authToken) => {
+export const authSuccess = () => {
     return {
-        type: actionTypes.AUTH_SUCCESS,
-        authToken: authToken
-    };
+        type: actionTypes.AUTH_SUCCESS
+    }
 };
 
 export const authFail = (error) => {
@@ -19,6 +18,22 @@ export const authFail = (error) => {
         type: actionTypes.AUTH_FAIL,
         error: error
     };
+};
+
+export const getUser = () => {
+    return dispatch => {
+        axios.get('http://localhost:3000/me', { withCredentials: true })
+        .then(response => {
+            console.log("Username" );
+            return {
+                type: actionTypes.GET_USER,
+                userName: response.data.user.name
+            }
+        })
+        .catch(error => {
+            dispatch(authFail(error));
+        })
+    }
 };
 
 export const logout = () => {
@@ -79,6 +94,7 @@ export const auth = (formData, history) => {
         axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
         .then(response => {
             dispatch(authSuccess());
+            dispatch(getUser());
             history.push('/dashboard');
         })
         .catch(error => {
@@ -101,3 +117,15 @@ export const signupAuth = (formData, history) => {
     };
 };
 
+export const authCheckState = () => {
+    return dispatch => {
+        let cookie = document.cookie.includes('isAuthenticated');
+        if (!cookie) {
+            dispatch(logout());
+        }
+        else {
+            dispatch(authSuccess());
+            dispatch(getUser());
+        }
+    };
+};
