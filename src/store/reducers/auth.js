@@ -32,7 +32,9 @@ const authLogout = (state, action) => {
 }
 
 const getUsername = (state, action) => {
-    return updateObject(state, {user: action.userName})
+    return updateObject( state, {
+        user: action.name
+    });
 }
 
 const reducer = (state = initialState, action) => {

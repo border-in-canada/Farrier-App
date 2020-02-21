@@ -15,7 +15,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.authCheck();
-    this.props.get();
 }
 
 
@@ -59,8 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    authCheck: () => dispatch(actions.authCheckState()),
-    get: () => dispatch(actions.getUser())
+    authCheck: () => dispatch(actions.authCheckState())
   }
 }
 

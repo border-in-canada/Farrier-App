@@ -20,14 +20,20 @@ export const authFail = (error) => {
     };
 };
 
-export const getUser = () => {
+export const getUser = (user) => {
+    return {
+        type: actionTypes.GET_USER,
+        name: user
+    }    
+};
+
+export const getMe = () => {
     return dispatch => {
         axios.get('http://localhost:3000/me', { withCredentials: true })
         .then(response => {
-            return {
-                type: actionTypes.GET_USER,
-                userName: response.data.user.name
-            }
+            const user = response.data.data.user.name;
+            console.log(user);
+            dispatch(getUser(user));
         })
         .catch(error => {
             dispatch(authFail(error));
@@ -93,7 +99,7 @@ export const auth = (formData, history) => {
         axios.post('http://localhost:3000/account/signin', formData, { withCredentials: true })
         .then(response => {
             dispatch(authSuccess());
-            dispatch(getUser());
+            dispatch(getMe());
             history.push('/dashboard');
         })
         .catch(error => {
@@ -124,7 +130,7 @@ export const authCheckState = () => {
         }
         else {
             dispatch(authSuccess());
-            dispatch(getUser());
+            dispatch(getMe());
         }
     };
 };
