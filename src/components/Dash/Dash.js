@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 
 class Dash extends Component {
-
-    componentDidMount() {
-        this.props.authCheck();
-    }
-
+   
     render() {
         return(
             <div>
-                <h1>Welcome</h1>
+                <h1>Welcome, {this.props.user}</h1>
             </div>
         );
     }
@@ -22,10 +17,4 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-      authCheck: () => dispatch(actions.authCheckState())
-    }
-  }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dash);
+export default connect(mapStateToProps, null)(Dash);
