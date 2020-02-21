@@ -24,7 +24,6 @@ export const getUser = () => {
     return dispatch => {
         axios.get('http://localhost:3000/me', { withCredentials: true })
         .then(response => {
-            console.log("Username" );
             return {
                 type: actionTypes.GET_USER,
                 userName: response.data.user.name
