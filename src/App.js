@@ -9,8 +9,15 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import Logout from './components/Logout/Logout';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import PasswordReset from './components/PasswordReset/PasswordReset';
+import * as actions from './store/actions/index';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.authCheck();
+    this.props.get();
+}
+
 
   render () {
 
@@ -46,10 +53,15 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated !== false
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    authCheck: () => dispatch(actions.authCheckState()),
+    get: () => dispatch(actions.getUser())
+  }
+}
 
-
-export default withRouter(connect(mapStateToProps, null)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
