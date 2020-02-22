@@ -43,7 +43,7 @@ export const getMe = () => {
 
 export const logout = () => {
     return dispatch => {
-        axios.post('http://localhost:3000/account/signout', { withCredentials: true })
+        axios.post('http://localhost:3000/account/signout', null, { withCredentials: true })
         .then(response => {
             return{
                 type: actionTypes.AUTH_LOGOUT
