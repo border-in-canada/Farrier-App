@@ -31,8 +31,7 @@ export const getMe = () => {
     return dispatch => {
         axios.get('http://localhost:3000/me', { withCredentials: true })
         .then(response => {
-            const user = response.data.data.user.name;
-            console.log(user);
+            const user = response.data.data.user.name; 
             dispatch(getUser(user));
         })
         .catch(error => {
@@ -42,12 +41,16 @@ export const getMe = () => {
 };
 
 export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+
+export const signOut = () => {
     return dispatch => {
         axios.post('http://localhost:3000/account/signout', null, { withCredentials: true })
         .then(response => {
-            return{
-                type: actionTypes.AUTH_LOGOUT
-            }
+            dispatch(logout());
         })
         .catch(error => {
             dispatch(authFail(error));
@@ -125,10 +128,7 @@ export const signupAuth = (formData, history) => {
 export const authCheckState = () => {
     return dispatch => {
         let cookie = document.cookie.includes('isAuthenticated');
-        if (!cookie) {
-            dispatch(logout());
-        }
-        else {
+        if (cookie) {
             dispatch(authSuccess());
             dispatch(getMe());
         }

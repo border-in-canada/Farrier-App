@@ -28,7 +28,7 @@ const authFail = ( state, action ) => {
 }
 
 const authLogout = (state, action) => {
-    return updateObject(state, {isAuthenticated: false});
+    return updateObject(state, {isAuthenticated: false, user: ''});
 }
 
 const getUsername = (state, action) => {
