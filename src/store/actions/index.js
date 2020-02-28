@@ -2,6 +2,7 @@ export {
     auth,
     signupAuth,
     logout,
+    signOut,
     requestPasswordReset,
     passwordReset,
     addClient,
