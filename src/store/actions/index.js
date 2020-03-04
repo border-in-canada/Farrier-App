@@ -1,8 +1,11 @@
 export {
     auth,
     signupAuth,
-    authCheckState,
     logout,
+    signOut,
     requestPasswordReset,
-    passwordReset
+    passwordReset,
+    addClient,
+    authCheckState,
+    getUser
 } from './auth';

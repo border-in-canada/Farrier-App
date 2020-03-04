@@ -1,0 +1,10 @@
+.FormContainer{
+    display: flex;
+    width: 100%;
+}
+
+.InputDiv{
+    display: inline-block;
+    width: 40%;
+    padding-left: 5px;
+}

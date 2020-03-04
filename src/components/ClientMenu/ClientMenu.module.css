@@ -1,0 +1,17 @@
+.ClientMenu {
+    display: flex;
+    justify-content: space-between;
+    padding: 4em;
+}
+
+.ClientMenu ul{
+    list-style: none
+}
+
+.ClientMenu a{
+    color: black;
+}
+
+.ClientMenu a:hover {
+    color: grey;
+}
