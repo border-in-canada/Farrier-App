@@ -7,3 +7,13 @@
     border: 1px solid red;
     background-color: rgb(252, 164, 155);
 }
+
+.TextArea {
+    height: 50px;
+    border-radius: 5px;
+}
+
+.Select {
+    width: 30%;
+    height: 30px;
+}

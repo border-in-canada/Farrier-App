@@ -93,7 +93,7 @@ class Signup extends Component {
             isValid = value.trim() !== '' && isValid;
         }
         if ( rules.mailPattern ) {
-            let regEx = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            let regEx = new RegExp(/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/);
             isValid = regEx.test(value) === true && isValid;
         }
 
@@ -106,7 +106,7 @@ class Signup extends Component {
         }
 
         if ( rules.pwPattern ) {
-            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/);
+            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])/);
             isValid = pwRegEx.test(value) === true && isValid;
         }
 

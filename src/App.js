@@ -7,15 +7,16 @@ import Splash from './components/Splash/Splash';
 import LoginContainer from './hoc/LoginContainer/LoginContainer';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Logout from './components/Logout/Logout';
-import * as actions from './store/actions/index';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import PasswordReset from './components/PasswordReset/PasswordReset';
+import * as actions from './store/actions/index';
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.isAuthCheck();
-  }
+    this.props.authCheck();
+}
+
 
   render () {
 
@@ -49,19 +50,16 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  console.log("authCheckdispatched");
-  return {
-    isAuthCheck: () => dispatch(actions.authCheckState())
-  };
-};
-
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.isAuthenticated !== false
   };
 };
 
-
+const mapDispatchToProps = dispatch => {
+  return {
+    authCheck: () => dispatch(actions.authCheckState())
+  }
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -2,9 +2,10 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
-    token: null,
+    isAuthenticated: false,
     error: null,
-    loading: false
+    loading: false,
+    user: ''
 };
 
 const authStart = ( state, action ) => {
@@ -13,7 +14,7 @@ const authStart = ( state, action ) => {
 
 const authSuccess = ( state, action ) => {
     return updateObject(state, { 
-        token: action.authToken,
+        isAuthenticated: true,
         error: null,
         loading: false
     });
@@ -27,7 +28,13 @@ const authFail = ( state, action ) => {
 }
 
 const authLogout = (state, action) => {
-    return updateObject(state, {token: null});
+    return updateObject(state, {isAuthenticated: false, user: ''});
+}
+
+const getUsername = (state, action) => {
+    return updateObject( state, {
+        user: action.name
+    });
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +43,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
+        case actionTypes.GET_USER: return getUsername(state, action);
         default:
             return state;
             
