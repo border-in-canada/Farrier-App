@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ClientMenu from '../../components/ClientMenu/ClientMenu';
 import Griddle, { plugins } from 'griddle-react';
 import styles from './Clients.module.css';
 
@@ -13,8 +12,7 @@ class Clients extends Component {
             address: '1234 5th St',
             city: 'Raleigh',   
             state: 'NC',
-            phone: '123-456-7890',
-            horses: [{name: 'Herman', color: 'white'}, {name: 'Moonbro', color: 'black'}]
+            phone: '123-456-7890'
         },
         {
             id: '2',
@@ -22,19 +20,41 @@ class Clients extends Component {
             address: '125 8th St',
             city: 'Durham',   
             state: 'NC',
-            phone: '123-456-7887',
-            horses: [{name: 'Nigel', color: 'brown'}, {name: 'Mike', color: 'orange'}]
+            phone: '123-456-7887'
         }];
 
-        return(
+        const layout = ({ Table, Pagination, Filter, SettingsWrapper }) => (
             <div>
-                <ClientMenu />
-                <div className={styles.GridContainer}>
-                    <Griddle 
-                        data={data}
-                        plugins={[plugins.LocalPlugin]}
-                     />
+                <div  className={styles.Layout}>
+                    <Filter />
+                    <SettingsWrapper />
                 </div>
+                <div><Table /></div>
+                <div className={styles.Pagination}>
+                    <Pagination />
+                </div>
+            </div>
+            
+        );
+
+        const styleConfig = {
+            styles: {
+                Table: {borderCollapse: 'collapse'},
+                TableHeadingCell: {borderBottom: '1px solid #ccc'},
+                Cell: {padding: '1.5em', borderBottom: '1px solid #ccc'},
+                Filter: {borderStyle: 'none none solid none', borderBottom: '1px solid #ccc', boxShadow: '0px 1px #ccc', height: '2em', width: '20em', fontSize: '14px'},
+                SettingsToggle: {fontSize: '14px', borderRadius: '5px'}
+            }
+        }
+
+        return(
+            <div className={styles.GridContainer}>
+                <Griddle 
+                    data={data}
+                    plugins={[plugins.LocalPlugin]}
+                    styleConfig={styleConfig}
+                    components={{Layout: layout}}
+                />
             </div>
         );
     }
