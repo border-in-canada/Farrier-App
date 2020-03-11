@@ -1,5 +1,15 @@
 .GridContainer {
-    width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 4em;
+}
+
+.Layout {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4em;
+}
+
+.Pagination {
+    padding-top: 2em;
 }
