@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 const clientMenu = (props) => {
     return (
         <div className={styles.ClientMenu}>
-            <h3>Search Bar</h3>
             <ul>
-                <li><Link to="/dashboard/addclient"><FontAwesomeIcon icon={faPlus} size="lg" /></Link></li>
+                <label>Add Client</label><li><Link to="/dashboard/addclient"><FontAwesomeIcon icon={faPlus} size="lg" /></Link></li>
             </ul>
         </div>
     );
