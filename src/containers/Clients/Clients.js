@@ -3,8 +3,8 @@ import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
 import styles from './Clients.module.css';
 import axios from 'axios';
 
-const getClientsForGrid = (currentPage, pageSize, callback) => {
-    const uri = `http://localhost:3000/clients?page=${currentPage - 1}&pagesize=${pageSize}`;
+const getClientsForGrid = (currentPage, pagesize, callback) => {
+    const uri = `http://localhost:3000/clients?page=${currentPage - 1}&pagesize=${pagesize}`;
     axios.get(uri, { withCredentials: true })
       .then((response) => {
         callback(response.data.clients, response.data.page.currentPage)
