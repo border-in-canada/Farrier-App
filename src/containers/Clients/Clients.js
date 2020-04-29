@@ -102,7 +102,6 @@ class Clients extends Component {
     }
     
     updateTableState = (data, currentPage) => {
-        console.log(data);
         this.setState({ 
             data: data, 
             currentPage: currentPage
@@ -111,7 +110,6 @@ class Clients extends Component {
 
     _onNext = () => {
         const { currentPage, pagesize } = this.state;
-        console.log(pagesize);
         getClientsForGrid(currentPage + 1, pagesize, this.updateTableState);
       }
     _onPrevious = () => {
