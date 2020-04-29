@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
+import ClientMenu from '../../components/ClientMenu/ClientMenu';
 import styles from './Clients.module.css';
 import axios from 'axios';
 
@@ -24,7 +25,7 @@ class Clients extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/clients?page=0&pagesize=20', { withCredentials: true })
+        axios.get('http://localhost:3000/clients?page=0&pagesize=10', { withCredentials: true })
         .then(response => {
             this.setState((state) => ({
                 data: response.data.clients.slice(response.data.page.currentPage - 1, response.data.page.pagesize),
@@ -73,6 +74,7 @@ class Clients extends Component {
 
         return(
             <div className={styles.GridContainer}>
+                <ClientMenu />
                 <Griddle 
                     data={data}
                     styleConfig={styleConfig}
@@ -94,7 +96,6 @@ class Clients extends Component {
                         <ColumnDefinition id="address1" order={4} />
                         <ColumnDefinition id="city" order={5} />
                         <ColumnDefinition id="postalCode" order={6} />
-                        <ColumnDefinition id="updatedAt" order={7} />
                     </RowDefinition>   
                 </Griddle>
             </div>
