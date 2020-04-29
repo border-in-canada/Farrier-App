@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Griddle from 'griddle-react';
+import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
 import styles from './Clients.module.css';
 import axios from 'axios';
 
@@ -18,19 +18,20 @@ class Clients extends Component {
     state = {
         data: [],
         pagesize: 0,
-        currentPage: 1,
+        currentPage: 0,
         recordCount: 0,
         loading: true
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/clients?page=0&pagesize=10', { withCredentials: true })
+        axios.get('http://localhost:3000/clients?page=0&pagesize=20', { withCredentials: true })
         .then(response => {
             this.setState((state) => ({
                 data: response.data.clients.slice(response.data.page.currentPage - 1, response.data.page.pagesize),
                 pagesize: response.data.page.pagesize,
                 currentPage: response.data.page.currentPage,
-                recordCount: response.data.total
+                recordCount: response.data.total,
+                loading: false
             }));        
         })
         .catch(error => {
@@ -85,8 +86,17 @@ class Clients extends Component {
                     onPrevious: this._onPrevious,
                     onGetPage: this._onGetPage
                     }}
-                    columns={["name", "email", "address1"]}
-                    components={{Layout: layout}} />
+                    components={{Layout: layout}} >
+                    <RowDefinition>
+                        <ColumnDefinition id="name" order={1} />
+                        <ColumnDefinition id="email" order={2} />
+                        <ColumnDefinition id="phone" order={3} />
+                        <ColumnDefinition id="address1" order={4} />
+                        <ColumnDefinition id="city" order={5} />
+                        <ColumnDefinition id="postalCode" order={6} />
+                        <ColumnDefinition id="updatedAt" order={7} />
+                    </RowDefinition>   
+                </Griddle>
             </div>
         );
     }
