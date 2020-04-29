@@ -5,7 +5,7 @@ class Dash extends Component {
    
     render() {
         return(
-            <div>
+            <div style={{width: '100%', textAlign: 'center'}}>
                 <h1>Welcome, {this.props.user}</h1>
             </div>
         );
