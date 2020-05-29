@@ -1,9 +1,9 @@
 
 .Show{
-    animation: in 1s forwards;
+    animation: in .7s forwards;
 }
 .Hide{
-    animation: out 1s ease-out forwards;
+    animation: out .7s ease-out forwards;
 }
 
 .Link:hover{
@@ -15,7 +15,8 @@
         transform: translateX(0);
     }
     100%{
-        transform: translateX(-200%)
+        transform: translateX(-200%);
+        display: none;
     }
 }
 
@@ -24,7 +25,7 @@
         transform: translateX(-200%);
     }
     50%{
-        transform: translateX(10%);
+        transform: translateX(5%);
     }
     100%{
         transform: translateX(0%);

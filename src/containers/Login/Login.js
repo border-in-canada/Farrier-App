@@ -11,13 +11,15 @@ class Login extends Component {
    //Form Setup
     state = {
         formContent: {
-            //Make a helper function to make this more clean//
-            
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Email'
+                    label: 'Email',
+                    placeholder: 'Email',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: ''
             },
@@ -25,7 +27,11 @@ class Login extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password'
+                    label: 'Password',
+                    placeholder: 'Password',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: ''
             }
@@ -65,10 +71,10 @@ class Login extends Component {
                 {formElementsArray.map(formElement => (  
                     <Input
                     key={formElement.id}
+                    id={formElement.id}
                     elementType={formElement.config.elementType} 
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
-                    label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     /> 
                 ))}
