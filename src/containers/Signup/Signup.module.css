@@ -4,10 +4,10 @@
 }
 
 .Show{
-    animation: in 1s forwards;
+    animation: in .7s forwards;
 }
 .Hide{
-    animation: out 1s ease-out forwards;
+    animation: out .7s ease-out forwards;
 }
 
 @keyframes out {
@@ -24,7 +24,7 @@
         transform: translateX(220%);
     }
     50%{
-        transform: translateX(-10%);
+        transform: translateX(-5%);
     }
     100%{
         transform: translateX(0%);

@@ -1,27 +1,27 @@
 import React from 'react';
 import styles from './Input.module.css';
-import { Input, FormControl } from '@material-ui/core';
+import TextInput from '../TextInput/TextInput';
 
 const input = (props) => {
     let inputElement = null;
     const inputClasses = [styles.InputElement];
 
-    if (props.invalid && props.shouldValidate && props.touched) {
-        inputClasses.push(styles.Invalid);
-    }
+    // if (props.invalid && props.shouldValidate && props.touched) {
+    //     inputClasses.push(styles.Invalid);
+    // }
     
-    if (props.elementType === 'text-area') {
-        inputClasses.push(styles.TextArea);
-    }
+    // if (props.elementType === 'text-area') {
+    //     inputClasses.push(styles.TextArea);
+    // }
     
-    if (props.elementType === 'select') {
-        inputClasses.push(styles.Select);
-    }
+    // if (props.elementType === 'select') {
+    //     inputClasses.push(styles.Select);
+    // }
 
     switch (props.elementType) {
         case ('input'):
-            inputElement = <Input 
-            className={inputClasses.join(' ')}
+            inputElement = <TextInput 
+            // className={inputClasses.join(' ')}
             id={props.key}
             {...props.elementConfig} 
             value={props.value}
@@ -45,8 +45,8 @@ const input = (props) => {
             ></textarea>;
             break;
         default: 
-            inputElement = <Input 
-            className={inputClasses.join(' ')}
+            inputElement = <TextInput 
+            // className={inputClasses.join(' ')}
             id={props.key}
             {...props.elementConfig} 
             value={props.value}
@@ -55,9 +55,9 @@ const input = (props) => {
     }
 
     return (
-        <FormControl margin="normal" fullWidth>
+        <div>
             {inputElement}
-        </FormControl>
+        </div>
     
     );
 };
