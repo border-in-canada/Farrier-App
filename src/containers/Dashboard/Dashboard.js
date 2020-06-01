@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Clients from '../Clients/Clients';
 import Dash from '../../components/Dash/Dash';
 import AddClient from '../../components/AddClient/AddClient';
+import EditClient from '../../components/EditClient/EditClient';
 
 const dashboard = (props) => (
     <div className={styles.Container}>
@@ -16,6 +17,7 @@ const dashboard = (props) => (
                 <Route path="/dashboard" exact component={Dash} />
                 <Route path="/dashboard/clients" component={Clients} />
                 <Route path="/dashboard/addclient" component={AddClient} />
+                <Route path="/dashboard/editclient" component={EditClient} />
             </Switch>
         </div>
     </div>

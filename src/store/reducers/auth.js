@@ -3,9 +3,10 @@ import { updateObject } from '../utility';
 
 const initialState = {
     isAuthenticated: false,
-    error: null,
+    error: '',
     loading: false,
-    user: ''
+    user: '',
+    clientEditdata: null
 };
 
 const authStart = ( state, action ) => {
@@ -37,6 +38,20 @@ const getUsername = (state, action) => {
     });
 }
 
+const clientEdit = ( state, action ) => {
+    return updateObject( state, {
+        clientEditData: action.clientData,
+        loading: false
+    });
+}
+
+const deleteClientStore = ( state, action ) => {
+    return updateObject( state, {
+        clientEditData: null,
+        loading: false
+    });
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
@@ -44,6 +59,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_FAIL: return authFail(state, action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
         case actionTypes.GET_USER: return getUsername(state, action);
+        case actionTypes.CLIENT_EDIT: return clientEdit(state, action);
+        case actionTypes.DELETE_CLIENT_STORE: return deleteClientStore(state, action);
         default:
             return state;
             

@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 const sideDrawer = (props) => {
     return(
         <div className={styles.sideDrawer}>
-            <Link className={styles.Link} to="/dashboard/clients">Clients</Link>
+            <div className={styles.Icons}></div>
+                <ul>
+                    <li><Link to="/dashboard/clients">Clients</Link></li>
+                    <li><Link to="/dashboard/addclient">Add Client</Link></li>
+                </ul>
         </div>
     );
 

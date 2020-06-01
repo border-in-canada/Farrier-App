@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Select, { components } from 'react-select';
 import styles from './Dropdown.module.css';
 import './Select.css';
-import StatusText from '../../StatusText/StatusText';
+import StatusText from '../StatusText/StatusText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,9 +18,8 @@ class Dropdown extends Component {
     
     render() {
 
-        //Storybook options and props//
-    const {id, placeholder, label, disabled, searchable, value, msgValue, msgType, changed} = {...this.props.config};
-    const options = [...this.props.config.options];
+    const {id, placeholder, label, width, disabled, searchable, value, msgValue, msgType, changed} = {...this.props};
+    const options = [...this.props.options];
 
     const ContainerClassName = [
         styles.Container, 
@@ -33,7 +32,7 @@ class Dropdown extends Component {
         control: (provided, state) => ({
             height: '56px',
             width: '100%',
-            border: state.isDisabled ? 'solid 1px #B3B3B3' : state.isFocused ? 'solid 1px #2965CC' : msgType === 'Error' ? 'solid 1px #E60000' :'solid 1px #999999',
+            borderBottom: state.isDisabled ? 'solid 2px #B3B3B3' : state.isFocused ? 'solid 2px #2965CC' : msgType === 'Error' ? 'solid 2px #E60000' :'solid 2px #999999',
             boxShadow: state.isFocused ? '0 0 3px #E4EBF8' : '',
             boxSizing: 'border-box',
             borderRadius: '4px',
@@ -87,7 +86,7 @@ class Dropdown extends Component {
     };
 
         return (
-            <div className={styles.Wrapper}>
+            <div style={{width: width, marginBottom: '1.8em'}}>
                 <div className={ContainerClassName.join(' ')}>
                     <Select  
                         id={id}
@@ -101,7 +100,7 @@ class Dropdown extends Component {
                         onBlur={this.focusHandler}
                         onChange={changed}
                         options={options}
-                        value={value}
+                        // value={value}
                         searchable={searchable}
                     /> 
                     <label htmlFor={id}>{label}</label>

@@ -4,7 +4,8 @@ import Input from '../../components/UI/Input/Input';
 import styles from './Login.module.css';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom";
+import StatusText from '../../components/UI/StatusText/StatusText';
 
 
 class Login extends Component {
@@ -76,18 +77,28 @@ class Login extends Component {
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
-                    /> 
+                    />
                 ))}
-                <Button type="submit" variant="contained" color="primary" size="medium">Submit</Button><br />
+                <div className={styles.SubmitContainer}><Button type="submit" variant="contained" color="primary" size="medium">Submit</Button></div>
                 
             </form>
             
         );
 
         return (
+            this.props.isError ? 
             <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
                 {form}
-                <Link className={styles.Link} to="/resetpassword">Forgot Password?</Link>
+                <div style={{paddingTop: '1em'}}>
+                    <StatusText msgType='Error' msgValue={this.props.isError} />
+                </div>
+                <div className={styles.LinkContainer}>
+                    <Link className={styles.Link} to="/resetpassword">Forgot Password?</Link>
+                </div>
+            </div> :
+            <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
+                {form}
+                <div className={styles.LinkContainer}><Link className={styles.Link} to="/resetpassword">Forgot Password?</Link></div>
             </div>
         );
     }
@@ -99,4 +110,10 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Login));
+const mapStateToProps = state => {
+    return {
+        isError: state.auth.error
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
