@@ -46,6 +46,40 @@ export const logout = () => {
     }
 }
 
+export const clientEdit = (rowData) => {
+    return {
+        type: actionTypes.CLIENT_EDIT,
+        clientData: rowData
+    };
+};
+
+export const deleteClientStore = () => {
+    return {
+        type: actionTypes.DELETE_CLIENT_STORE
+    };
+};
+
+export const deleteClient = (clientId, history) => {
+    return dispatch => {
+        const URL = 'http://localhost:3000/client/' + clientId;
+        axios.delete(URL, null, { withCredentials: true })
+        .then(response => {
+            dispatch(deleteClientStore());
+            history.push('/dashboard/clients');
+        })
+        .catch(error => {
+            dispatch(authFail(error));
+        })
+    };
+};
+
+export const rowSelect = (rowData, history) => {
+    return dispatch => {
+        dispatch(clientEdit(rowData));
+        history.push('/dashboard/editclient');
+    };
+};
+
 export const signOut = () => {
     return dispatch => {
         axios.post('http://localhost:3000/account/signout', null, { withCredentials: true })
@@ -106,7 +140,7 @@ export const auth = (formData, history) => {
             history.push('/dashboard');
         })
         .catch(error => {
-            dispatch(authFail(error));
+            dispatch(authFail(error.response.data));
         })
     };
 };
@@ -120,7 +154,7 @@ export const signupAuth = (formData, history) => {
             history.push('/dashboard');
         })
         .catch(error => {
-            dispatch(authFail(error));
+            dispatch(authFail(error.response.data.errors[0].msg));
         })
     };
 };

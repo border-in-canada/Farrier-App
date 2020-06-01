@@ -5,16 +5,20 @@ import styles from './Signup.module.css';
 import { connect, } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
+import StatusText from '../../components/UI/StatusText/StatusText';
 
 class Signup extends Component {
     state = {
         formContent: {
-            //Make a helper function to make this more clean//
             name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Name'
+                    placeholder: 'Name',
+                    label: 'Name',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: '',
                 validation: {
@@ -27,7 +31,11 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Email'
+                    placeholder: 'Email',
+                    label: 'Email',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: '',
                 validation: {
@@ -41,7 +49,11 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password'
+                    placeholder: 'Password',
+                    label: 'Password',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: '',
                 validation: {
@@ -57,7 +69,11 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Verify Password'
+                    placeholder: 'Verify Password',
+                    label: 'Verify Password',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: '',
                 validation: {
@@ -77,6 +93,7 @@ class Signup extends Component {
         const updatedFormElement = {...updatedFormContent[inputIdentifier]};
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.valid ? updatedFormElement.elementConfig.msgType = '' : updatedFormElement.elementConfig.msgType = 'Error'
         updatedFormElement.touched = true;
         updatedFormContent[inputIdentifier] = updatedFormElement;
         let formIsValid = true;
@@ -141,12 +158,14 @@ class Signup extends Component {
             });
         }
 
+    
         let form = (
             <form onSubmit={this.submitHandler}>
                 {formElementsArray.map(formElement => (
                     
                     <Input
                     key={formElement.id}
+                    id={formElement.id}
                     elementType={formElement.config.elementType} 
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
@@ -175,9 +194,20 @@ class Signup extends Component {
         );
 
         return (
-            <div className={`${styles.FormContainer} ${this.props.show ? styles.Hide : styles.Show}`}>
-                {form}
-            </div>
+            !this.props.show ?
+            this.props.isError ? 
+                <div className={`${styles.FormContainer} ${this.props.show ? styles.Hide : styles.Show}`}>
+                    {form}
+                    <div style={{paddingTop: '1em'}}>
+                        <StatusText msgType='Error' msgValue={this.props.isError}/>
+                    </div>
+                </div> :
+                <div className={`${styles.FormContainer} ${this.props.show ? styles.Hide : styles.Show}`}>
+                    {form}
+                </div> :
+                null
+            
+            
         );
     }
 }
@@ -188,4 +218,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(Signup));
+const mapStateToProps = state => {
+    return {
+        isError: state.auth.error
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signup));

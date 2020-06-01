@@ -1,0 +1,22 @@
+.StatusDiv{
+    min-width: 180px;
+    height: 24px;
+    padding-top: 4px;
+    font-size: 10pt;
+}
+
+.Default span {
+    color: #767676;
+}
+
+.Error span {
+    color: #E60000;
+}
+
+.Link span {
+    color: #2965CC; 
+}
+
+.Success span {
+    color: #00804D;
+}
