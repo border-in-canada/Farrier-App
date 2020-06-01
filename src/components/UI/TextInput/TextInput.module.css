@@ -1,5 +1,5 @@
 .Wrapper {
-    width: 180px;
+    width: 400px;
     height: 80px;
 }
 
@@ -7,7 +7,7 @@
     width: 100%;
     height: 56px;
     position: relative;
-    border: solid 1px #999999;
+    border-bottom: solid 2px #999999;
     box-sizing: border-box;
     border-radius: 4px;
     padding: 8px 40px 8px 16px;
@@ -15,21 +15,21 @@
 }
 
 .Focus {
-    border: solid 1px #2965CC;
+    border-bottom: solid 2px #2965CC;
     box-shadow: 0 0 3px #E4EBF8;
 }
 
 .Error {
-    border: solid 1px #E60000;            
+    border-bottom: solid 2px #E60000;            
 }
 
 .Filled {
-    border: solid 1px #999999;
+    border-bottom: solid 2px #999999;
     box-shadow: 0 0 0;
 }
 
 .Disabled {
-    border: solid 1px #B3B3B3;
+    border-bottom: solid 2px #B3B3B3;
     background-color: #F7F7F7;
 }
 

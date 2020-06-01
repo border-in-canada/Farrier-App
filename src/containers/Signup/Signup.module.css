@@ -4,6 +4,7 @@
 }
 
 .Show{
+    width: 100%;
     animation: in .7s forwards;
 }
 .Hide{
@@ -13,14 +14,16 @@
 @keyframes out {
     0%{
         transform: translateX(0);
+        opacity: 100%;
     }
     100%{
-        transform: translateX(220%)
+        transform: translateX(220%);
+        opacity: 0;
     }
 }
 
 @keyframes in {
-    0%{
+    0%{ 
         transform: translateX(220%);
     }
     50%{

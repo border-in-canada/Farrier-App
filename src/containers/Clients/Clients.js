@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Griddle, { RowDefinition, ColumnDefinition } from 'griddle-react';
-import ClientMenu from '../../components/ClientMenu/ClientMenu';
 import styles from './Clients.module.css';
 import axios from 'axios';
+import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 
 const getClientsForGrid = (currentPage, pagesize, callback) => {
     const uri = `http://localhost:3000/clients?page=${currentPage - 1}&pagesize=${pagesize}`;
@@ -40,15 +43,21 @@ class Clients extends Component {
         })
     }
 
+    getRowData = (key) => {
+        const rowData = this.state.data[key];
+        this.props.onRowSelect(rowData, this.props.history);
+    }
+
+
     render() {
 
         const layout = ({ Table, Pagination, Filter, SettingsWrapper }) => (
             <div>
-                <div  className={styles.Layout}>
+                <div className={styles.Layout}>
                     <Filter />
                     <SettingsWrapper />
                 </div>
-                <div><Table /></div>
+                <div className={styles.Table}><Table /></div>
                 <div className={styles.Pagination}>
                     <Pagination />
                 </div>
@@ -58,23 +67,25 @@ class Clients extends Component {
 
         const styleConfig = {
             styles: {
-                Table: {borderCollapse: 'collapse'},
-                TableHeadingCell: {padding: '2.5em', borderBottom: '1px solid #ccc'},
-                Cell: {borderBottom: '1px solid #ccc'},
-                Filter: {borderStyle: 'none none solid none', borderBottom: '1px solid #ccc', boxShadow: '0px 1px #ccc', height: '2em', width: '20em', fontSize: '14px', marginLeft: '1.5em'},
-                SettingsToggle: {fontSize: '14px', borderRadius: '5px', marginLeft: '1.5em'},
-                NextButton: {margin: '1.5em'},
-                PreviousButton: {margin: '1.5em'},
-                PageDropdown: {margin: '1.5em'}
+                Table: {borderCollapse: 'collapse', width: '100%'},
+                TableHeading: {color: '#394F3C'},
+                TableHeadingCell: {padding: '2em', borderBottom: '1px solid rgb(199, 198, 198)'},
+                NextButton: {marginLeft: '1em'},
+                PreviousButton: {marginLeft: '1em'},
+                PageDropdown: {marginLeft: '1em'}
+            },
+            classNames: {
+                SettingsToggle: styles.SettingsButton,
+                Filter: styles.Filter,
+                Row: styles.Row,
+                Cell: styles.Cell
             }
         }
-
 
         const { data, pagesize, currentPage, recordCount }  = this.state;
 
         return(
             <div className={styles.GridContainer}>
-                <ClientMenu />
                 <Griddle 
                     data={data}
                     styleConfig={styleConfig}
@@ -87,8 +98,14 @@ class Clients extends Component {
                     onNext: this._onNext,
                     onPrevious: this._onPrevious,
                     onGetPage: this._onGetPage
-                    }}
-                    components={{Layout: layout}} >
+                    }}  
+                    components={{
+                        Layout: layout, 
+                        RowEnhancer: OriginalComponent => props => (
+                        <OriginalComponent
+                           {...props}
+                           onClick={() => this.getRowData(props.griddleKey)}
+                        />)}}>
                     <RowDefinition>
                         <ColumnDefinition id="name" order={1} />
                         <ColumnDefinition id="email" order={2} />
@@ -96,7 +113,7 @@ class Clients extends Component {
                         <ColumnDefinition id="address1" order={4} />
                         <ColumnDefinition id="city" order={5} />
                         <ColumnDefinition id="postalCode" order={6} />
-                    </RowDefinition>   
+                    </RowDefinition> 
                 </Griddle>
             </div>
         );
@@ -124,4 +141,10 @@ class Clients extends Component {
 
 }
 
-export default Clients;
+const mapDispatchToProps = dispatch => {
+    return {
+        onRowSelect: (rowData, history) => dispatch(actions.rowSelect(rowData, history))
+    }
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(Clients));

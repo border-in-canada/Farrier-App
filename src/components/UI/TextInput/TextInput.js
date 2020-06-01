@@ -14,7 +14,7 @@ class TextInput extends Component {
 
     render() {
 
-        const {id, type, placeholder, label, disabled, value, msgValue, msgType, changed} = {...this.props};
+        const {id, type, width, placeholder, label, disabled, value, msgValue, msgType, changed} = {...this.props};
 
         const ContainerClassName = [
             styles.Container, 
@@ -24,9 +24,9 @@ class TextInput extends Component {
             `${(disabled ? `${styles.Disabled}` : '')}`];
 
         return (
-            <div className={styles.Wrapper}>
+            <div style={{width: width}}>
                 <div className={ContainerClassName.join(' ')}>
-                    <input  
+                    <input 
                         type={type}
                         id={id}
                         value={value}
