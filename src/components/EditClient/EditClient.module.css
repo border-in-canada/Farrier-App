@@ -1,0 +1,39 @@
+.FormContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    padding: 0 1em 0 1em;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.EditBanner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.EditBanner i{
+    padding: 1.5em;
+    color: rgb(126, 125, 125);
+    
+}
+
+.EditBanner i:hover {
+    cursor: pointer;
+    color: rgb(161, 161, 161);
+}
+
+.InputContainer {
+    padding-left: 5px;
+}
+
+.ButtonContainer {
+    width: 20%;
+    display: flex;
+}
+
+.ButtonContainer a{
+    text-decoration: none;
+}

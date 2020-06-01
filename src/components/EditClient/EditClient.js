@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Input from '../UI/Input/Input';
 import { Button } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import styles from './AddClient.module.css';
+import styles from './EditClient.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
-class AddClient extends Component {
+class EditClient extends Component {
+    
     state = {
         formContent: {
             name: {
@@ -22,7 +25,7 @@ class AddClient extends Component {
                     msgType: ''
                 },
                 required: true,
-                value: ''
+                value: this.props.clientData.name
             },
             email: {
                 elementType: 'input',
@@ -35,7 +38,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.email
             },
             phone: {
                 elementType: 'input',
@@ -48,7 +51,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.phone
             },
             address1: {
                 elementType: 'input',
@@ -61,7 +64,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.address1
             },
             address2: {
                 elementType: 'input',
@@ -74,7 +77,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.address2
             },
             address3: {
                 elementType: 'input',
@@ -87,7 +90,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.address3
             },
             city: {
                 elementType: 'input',
@@ -100,7 +103,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.city
             },
             stateProvince: {
                 elementType: 'select',
@@ -115,7 +118,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.stateProvince
             },
             postalCode: {
                 elementType: 'input',
@@ -128,7 +131,7 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.postalCode
             },
             notes: {
                 elementType: 'text-area',
@@ -141,10 +144,11 @@ class AddClient extends Component {
                     msgValue: '',
                     msgType: ''
                 },
-                value: ''
+                value: this.props.clientData.notes
             },
         }
     }
+
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormContent = {...this.state.formContent};
@@ -161,6 +165,10 @@ class AddClient extends Component {
         updatedFormElement.value = newValue;
         updatedFormContent[inputId] = updatedFormElement;
         this.setState({formContent: updatedFormContent});
+    }
+
+    deleteClientHandler = (clientId) => {
+        this.props.deleteClient(clientId, this.props.history);
     }
     
     submitHandler = (event) => {
@@ -194,8 +202,9 @@ class AddClient extends Component {
                     dropdownChanged={(selectedOption) => this.dropdownChangedHandler(selectedOption, formElement.id)}
                     />
                 ))}
-                <div>
-                    <Button type="submit" variant="contained" color="primary" size="medium">Add Client</Button>
+                <div className={styles.ButtonContainer}>
+                    <div style={{width: '4em', paddingLeft: '1em'}}><Link to='/dashboard/clients'><Button variant="contained" color="secondary" size="medium" fullWidth>Cancel</Button></Link></div>
+                    <div style={{width: '5em', paddingLeft: '1em'}}><Button type="submit" variant="contained" color="primary" size="medium" fullWidth>Update</Button></div>
                 </div>
             </form>
             
@@ -203,7 +212,11 @@ class AddClient extends Component {
 
         return (
             <div style={{width: '100%'}}>
-                <div><h2>Add Client</h2></div>
+                <div className={styles.EditBanner}>
+                    <p></p>
+                    <h2>Edit Client</h2>
+                    <i onClick={() => this.deleteClientHandler(this.props.clientData.id)}><FontAwesomeIcon icon={faTrash} size="lg" /></i>
+                </div>
                 {form}
             </div>
             
@@ -211,11 +224,18 @@ class AddClient extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        clientData: state.auth.clientEditData
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (data, history) => dispatch(actions.addClient(data, history))
+        onAuth: (data, history) => dispatch(actions.addClient(data, history)),
+        deleteClient: (clientId, history) => dispatch(actions.deleteClient(clientId, history))
     }
 };
 
 
-export default withRouter(connect(null, mapDispatchToProps)(AddClient));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditClient));
