@@ -203,7 +203,7 @@ class EditClient extends Component {
                     />
                 ))}
                 <div className={styles.ButtonContainer}>
-                    <div style={{width: '4em', paddingLeft: '1em'}}><Link to='/dashboard/clients'><Button variant="contained" color="secondary" size="medium" fullWidth>Cancel</Button></Link></div>
+                    <div style={{width: '5em', paddingLeft: '1em'}}><Link to='/dashboard/clients'><Button variant="contained" color="secondary" size="medium" fullWidth>Cancel</Button></Link></div>
                     <div style={{width: '5em', paddingLeft: '1em'}}><Button type="submit" variant="contained" color="primary" size="medium" fullWidth>Update</Button></div>
                 </div>
             </form>

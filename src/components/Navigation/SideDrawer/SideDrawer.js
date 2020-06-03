@@ -1,14 +1,22 @@
 import React from 'react';
 import styles from './SideDrawer.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const sideDrawer = (props) => {
     return(
         <div className={styles.sideDrawer}>
             <div className={styles.Icons}></div>
                 <ul>
-                    <li><Link to="/dashboard/clients">Clients</Link></li>
-                    <li><Link to="/dashboard/addclient">Add Client</Link></li>
+                    <NavLink 
+                        to="/dashboard/clients" 
+                        activeClassName={styles.active}>
+                        <li>Clients</li>
+                    </NavLink>
+                    <NavLink 
+                        to="/dashboard/addclient" 
+                        activeClassName={styles.active}>
+                        <li>Add Client</li>
+                    </NavLink>
                 </ul>
         </div>
     );

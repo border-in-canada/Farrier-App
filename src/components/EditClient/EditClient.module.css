@@ -16,13 +16,13 @@
 
 .EditBanner i{
     padding: 1.5em;
-    color: rgb(126, 125, 125);
+    color: #394F3C;
     
 }
 
 .EditBanner i:hover {
     cursor: pointer;
-    color: rgb(161, 161, 161);
+    color: rgb(82, 119, 88);
 }
 
 .InputContainer {

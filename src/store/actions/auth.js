@@ -62,7 +62,7 @@ export const deleteClientStore = () => {
 export const deleteClient = (clientId, history) => {
     return dispatch => {
         const URL = 'http://localhost:3000/client/' + clientId;
-        axios.delete(URL, null, { withCredentials: true })
+        axios.delete(URL, { withCredentials: true })
         .then(response => {
             dispatch(deleteClientStore());
             history.push('/dashboard/clients');
