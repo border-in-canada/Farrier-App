@@ -30,7 +30,7 @@ const nav = (props) => {
 
 const mapStateToProps = state => {
     return {
-        isAuth: state.auth.token !== null
+        isAuth: state.auth.isAuthenticated
     }
 }                   
 

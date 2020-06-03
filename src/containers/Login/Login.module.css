@@ -1,13 +1,21 @@
-
 .Show{
-    animation: in 1s forwards;
+    width: 100%;
+    animation: in .7s forwards;
 }
 .Hide{
-    animation: out 1s ease-out forwards;
+    animation: out .7s ease-out forwards;
+}
+
+.SubmitContainer {
+    padding-top: 2em;
+}
+
+.LinkContainer {
+    padding-top: 1em;
 }
 
 .Link:hover{
-    color: lightblue;
+    color: rgb(12, 102, 238);
 }
 
 @keyframes out {
@@ -15,16 +23,18 @@
         transform: translateX(0);
     }
     100%{
-        transform: translateX(-200%)
+        transform: translateX(-200%);
+        display: none;
     }
 }
 
 @keyframes in {
     0%{
+        display: block;
         transform: translateX(-200%);
     }
     50%{
-        transform: translateX(10%);
+        transform: translateX(5%);
     }
     100%{
         transform: translateX(0%);

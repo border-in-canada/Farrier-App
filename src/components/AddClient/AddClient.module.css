@@ -1,0 +1,14 @@
+.FormContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    padding: 0 1em 0 1em;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+
+.InputContainer {
+    padding-left: 5px;
+}

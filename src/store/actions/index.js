@@ -1,8 +1,15 @@
 export {
     auth,
     signupAuth,
-    authCheckState,
     logout,
+    clientEdit,
+    deleteClientStore,
+    deleteClient,
+    rowSelect,
+    signOut,
     requestPasswordReset,
-    passwordReset
+    passwordReset,
+    addClient,
+    authCheckState,
+    getUser
 } from './auth';

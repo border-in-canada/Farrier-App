@@ -4,20 +4,23 @@ import Input from '../../components/UI/Input/Input';
 import styles from './Login.module.css';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom";
+import StatusText from '../../components/UI/StatusText/StatusText';
 
 
 class Login extends Component {
    //Form Setup
     state = {
         formContent: {
-            //Make a helper function to make this more clean//
-            
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Email'
+                    label: 'Email',
+                    placeholder: 'Email',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: ''
             },
@@ -25,7 +28,11 @@ class Login extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password'
+                    label: 'Password',
+                    placeholder: 'Password',
+                    disabled: false,
+                    msgValue: '',
+                    msgType: ''
                 },
                 value: ''
             }
@@ -65,23 +72,33 @@ class Login extends Component {
                 {formElementsArray.map(formElement => (  
                     <Input
                     key={formElement.id}
+                    id={formElement.id}
                     elementType={formElement.config.elementType} 
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
-                    label={formElement.config.elementConfig.label}
                     changed={(event) => this.inputChangedHandler(event, formElement.id)}
-                    /> 
+                    />
                 ))}
-                <Button type="submit" variant="contained" color="primary" size="medium">Submit</Button><br />
+                <div className={styles.SubmitContainer}><Button type="submit" variant="contained" color="primary" size="medium">Submit</Button></div>
                 
             </form>
             
         );
 
         return (
+            this.props.isError ? 
             <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
                 {form}
-                <Link className={styles.Link} to="/resetpassword">Forgot Password?</Link>
+                <div style={{paddingTop: '1em'}}>
+                    <StatusText msgType='Error' msgValue={this.props.isError} />
+                </div>
+                <div className={styles.LinkContainer}>
+                    <Link className={styles.Link} to="/resetpassword">Forgot Password?</Link>
+                </div>
+            </div> :
+            <div className={`${this.props.show ? styles.Show : styles.Hide}`}>
+                {form}
+                <div className={styles.LinkContainer}><Link className={styles.Link} to="/resetpassword">Forgot Password?</Link></div>
             </div>
         );
     }
@@ -93,4 +110,10 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+const mapStateToProps = state => {
+    return {
+        isError: state.auth.error
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
