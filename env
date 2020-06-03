@@ -1,0 +1,9 @@
+TOKEN_SECRET="Qc48-rzHdU6o-LA_9c2Z*9q"
+PRISMA_URI_LOCAL="http://localhost:4466"
+FRONTEND_URL="http://localhost:3006"
+PORT="3000"
+MAIL_HOST="smtp.mailtrap.io"
+MAIL_PORT="2525"
+MAIL_USER="a16d80d7b02fd2"
+MAIL_PASSWORD="2cdee509c9502a"
+
