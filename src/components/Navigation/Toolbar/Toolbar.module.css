@@ -14,14 +14,18 @@
     display: flex;
 }
 
-.AuthLogo h3 {
-    padding-left: 1.5em;
-    padding-top: .5em;
+.AuthLogo h2 {
+    padding-left: 1em;
+    padding-top: .2em;
+    font-family: 'Amatic SC', cursive;
+    font-size: 28px;
 }
 
-.LogoContainer h2 {
-    padding-left: 1.5em;
-    padding-top: 1em;
+.LogoContainer h1 {
+    padding-left: 1em;
+    padding-top: .2em;
+    font-family: 'Amatic SC', cursive;
+    font-size: 40px;
 }
 
 .Auth {

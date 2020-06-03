@@ -24,6 +24,7 @@
     font-size: 16px;
     width: 5em;
     height: 2em;
+    border: 1px solid rgb(226, 226, 226);
     border-radius: 5px;
     margin-left: 1.5em;
     background-color: #F50D57;
@@ -32,7 +33,9 @@
 }
 
 .SettingsButton:hover {
-    background-color: rgb(238, 61, 117);
+    background-color: rgba(211, 12, 75, 0.856);
+    border: 1px solid rgb(167, 166, 166);
+    box-shadow: 0 1px .5px rgb(187, 186, 186);
 }
 
 .Filter {
