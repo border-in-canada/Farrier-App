@@ -1,5 +1,6 @@
 .sideDrawer {
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color:rgb(112, 193, 201);
@@ -7,6 +8,7 @@
 }
 
 .sideDrawer ul {
+    width: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -15,29 +17,37 @@
 }
 
 .sideDrawer ul li {
+    width: 100%;
     border-bottom: 1px solid rgb(158, 157, 157);
     padding-top: 1em;
     padding-bottom: 1em;
 }
 
 .sideDrawer ul li:hover {
-    background-color: rgb(140, 202, 207);
+    background-color: rgb(221, 220, 220);
     cursor: pointer;
 }
 
-.sideDrawer ul a:hover {
-    color: #F50D57;
+.sideDrawer ul a:hover,
+.sideDrawer ul a:active
+ {  
+    color: rgb(17, 174, 189);
     cursor: pointer;
+}
+
+.sideDrawer ul a.active {
+    color: #F50D57;
 }
 
 .sideDrawer ul a {
+    width: 100%;
     text-decoration: none;
     color: white;
 }
 
 .Icons {
     width: 100%;
-    height: 10%;
+    height: 8%;
     background-color: rgb(112, 193, 201);
 }
 

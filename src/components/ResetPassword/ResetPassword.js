@@ -15,7 +15,8 @@ class ResetPassword extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Email'
+                    placeholder: 'Email',
+                    label: 'Email'
                 },
                 value: ''
             }
@@ -69,6 +70,7 @@ class ResetPassword extends Component {
 
         return (
             <div className={styles.FormContainer}>
+                <h3>Enter your Email address below to have a password reset link emailed to you.</h3>
                 {form}
             </div>
         );
