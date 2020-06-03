@@ -1,0 +1,36 @@
+.Wrapper {
+    height: 80px;
+}
+
+.Container {
+    width: 100%;
+    height: 56px;
+    position: relative;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.Container.Disabled {
+    background-color: #F7F7F7;
+}
+
+.Container label {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    pointer-events: none;
+    font-size: 16px;            
+    color: #767676;
+}
+
+.Container.Focus label {
+    top: 8px;
+    bottom: 0;
+    font-size: 12px;
+}
+
+.Container.Filled label {
+    top: 8px;
+    bottom: 0;
+    font-size: 12px;
+}

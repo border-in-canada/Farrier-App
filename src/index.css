@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  overflow: hidden;
   font-family: "Sunflower",
     sans-serif;
   -webkit-font-smoothing: antialiased;

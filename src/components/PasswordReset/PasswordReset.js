@@ -60,7 +60,7 @@ class PasswordReset extends Component {
         }
 
         if ( rules.pwPattern ) {
-            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/);
+            let pwRegEx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])/);
             isValid = pwRegEx.test(value) === true && isValid;
         }
 
